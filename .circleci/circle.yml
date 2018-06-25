@@ -1,0 +1,22 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8.10
+
+    steps:
+      - checkout
+
+      - run:
+          name: Install Serverless CLI and dependencies
+          command: |
+            sudo npm i -g serverless
+            npm install
+
+      - run: 
+          name: Run tests
+          command: npm test
+
+      - run: 
+          name: Deploy 
+          command: serverless deploy --stage dev
